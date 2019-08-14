@@ -56,13 +56,13 @@ def get_num_of_lines_in_file(fname):
     num_of_lines = int(num_of_lines_cmd.split()[0])
     return num_of_lines
 
-def bytes_to_human(size, decimal_places=2):
+def bytes_to_human(size):
     ''' Returns a human readable file size from a number of bytes. '''
 
     for unit in ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']:
         if size < 1024: break
         size /= 1024
-    return f'{size:.{decimal_places}f}{unit}B'
+    return '%.2f%sB' % (size, unit)
 
 def seconds_to_human(seconds):
     ''' Returns a human readable string from a number of seconds. '''
