@@ -23,7 +23,7 @@ def fclrprint(fstring, color_str='y'):
     color = CC_YELLOW
     if color_str in COLOR_MAP_DICT:
         color = COLOR_MAP_DICT[color_str]
-    colored_fstr = f'\033[{color}m' + fstring + f'\033[0m'
+    colored_fstr = ('\033[%sm' % (color)) + fstring + '\033[0m' 
     print(colored_fstr)
 
 def slugify(s):
