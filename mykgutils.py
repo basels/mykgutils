@@ -14,8 +14,10 @@ CC_YELLOW = 93
 CC_LIGHTBLUE = 94
 CC_PURPLE = 35
 CC_CYAN = 36
+CC_GRAY = 90
 COLOR_MAP_DICT = {'r': CC_RED, 'g': CC_GREEN, 'y': CC_YELLOW, \
-                  'b': CC_LIGHTBLUE, 'p': CC_PURPLE, 'c': CC_CYAN}
+                  'b': CC_LIGHTBLUE, 'p': CC_PURPLE, 'c': CC_CYAN, \
+                  'gray': CC_GRAY}
 
 # --- utils -------------------------------------------------------------------
 
