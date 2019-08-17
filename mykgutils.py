@@ -7,6 +7,7 @@ from requests import get
 from subprocess import check_output
 from sys import stdout
 from time import time
+from hashlib import md5
 
 CC_RED = 91
 CC_GREEN = 92
@@ -103,3 +104,8 @@ def column_num2str(n):
         n, remainder = divmod(n - 1, 26)
         string = chr(65 + remainder) + string
     return string
+
+def hash_string_md5(input_string):
+    ''' return HEX string representing the MD5 hash of the input string. '''
+    hash_object = md5(input_string.encode())
+    return hash_object.hexdigest()
