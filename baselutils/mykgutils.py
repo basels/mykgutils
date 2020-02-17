@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from datetime import timedelta
 from os import listdir
 from regex import sub as rx_sub
@@ -5,6 +7,7 @@ from requests import get
 from subprocess import check_output
 from sys import stdout
 from time import time
+from hashlib import md5
 
 CC_RED = 91
 CC_GREEN = 92
@@ -12,8 +15,10 @@ CC_YELLOW = 93
 CC_LIGHTBLUE = 94
 CC_PURPLE = 35
 CC_CYAN = 36
+CC_GRAY = 90
 COLOR_MAP_DICT = {'r': CC_RED, 'g': CC_GREEN, 'y': CC_YELLOW, \
-                  'b': CC_LIGHTBLUE, 'p': CC_PURPLE, 'c': CC_CYAN}
+                  'b': CC_LIGHTBLUE, 'p': CC_PURPLE, 'c': CC_CYAN, \
+                  'gray': CC_GRAY}
 
 # --- utils -------------------------------------------------------------------
 
@@ -23,7 +28,7 @@ def fclrprint(fstring, color_str='y'):
     color = CC_YELLOW
     if color_str in COLOR_MAP_DICT:
         color = COLOR_MAP_DICT[color_str]
-    colored_fstr = f'\033[{color}m' + fstring + f'\033[0m'
+    colored_fstr = ('\033[%sm' % (color)) + fstring + '\033[0m' 
     print(colored_fstr)
 
 def slugify(s):
@@ -56,13 +61,13 @@ def get_num_of_lines_in_file(fname):
     num_of_lines = int(num_of_lines_cmd.split()[0])
     return num_of_lines
 
-def bytes_to_human(size, decimal_places=2):
+def bytes_to_human(size):
     ''' Returns a human readable file size from a number of bytes. '''
 
     for unit in ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']:
         if size < 1024: break
         size /= 1024
-    return f'{size:.{decimal_places}f}{unit}B'
+    return '%.2f%sB' % (size, unit)
 
 def seconds_to_human(seconds):
     ''' Returns a human readable string from a number of seconds. '''
@@ -99,3 +104,8 @@ def column_num2str(n):
         n, remainder = divmod(n - 1, 26)
         string = chr(65 + remainder) + string
     return string
+
+def hash_string_md5(input_string):
+    ''' return HEX string representing the MD5 hash of the input string. '''
+    hash_object = md5(input_string.encode())
+    return hash_object.hexdigest()
